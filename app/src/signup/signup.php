@@ -1,4 +1,9 @@
 <?php
+    $response = array(
+        'ok' => 'true',
+        'error' => 'none',
+    );
+
     if (isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_repeat'])
     && !empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_repeat']))
     {
@@ -21,14 +26,24 @@
 
                 $sth->execute();
 
-                echo json_encode('successful');
+                $response['ok'] = 'true';
+                $response['error'] = 'none';
+                echo json_encode($response);
+                exit();
 
             } catch (Exception $e) {
-                echo json_encode($e->getMessage());
+                $response['ok'] = 'false';
+                $response['error'] = $e->getMessage();
             }
         } else {
-            echo json_encode('password_different');
+            $response['ok'] = 'false';
+            $response['error'] = 'password_different';
         }
+    } else {
+        $response['ok'] = 'false';
+        $response['error'] = 'fields_incorrect';
     }
-    //header('Location: http://localhost/index.html');
+
+    echo json_encode($response);
+    exit();
 ?>

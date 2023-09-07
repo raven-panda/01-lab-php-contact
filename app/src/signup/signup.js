@@ -15,7 +15,11 @@ form.addEventListener('submit', e => {
             return res.json();
         })
         .then(data => {
-            console.log(data);
+            if (data.ok === "true") {
+                window.location.href = 'http://localhost/index.html';
+            } else {
+                console.log(data);
+            }
         })
         .catch(error => {
             console.error('Erreur lors de la requête AJAX : ', error);
