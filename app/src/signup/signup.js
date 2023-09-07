@@ -1,6 +1,6 @@
 const form = document.querySelector('form');
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', function(e) {
     if (form.checkValidity() === true) {
         e.preventDefault()
         const formdata = new FormData(form);

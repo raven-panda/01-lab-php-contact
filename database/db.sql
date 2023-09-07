@@ -29,7 +29,9 @@ CREATE TABLE IF NOT EXISTS `contactdb`.`user` (
   `firstname` VARCHAR(100) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `date` DATETIME NOT NULL,
+  `signup_date` DATETIME NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+  `token_time` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY (`email`))
 ENGINE = InnoDB;
