@@ -1,3 +1,14 @@
+<?php
+    session_start();
+
+    $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
+    $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
+
+    if (!isset($_SESSION['token']) && !isset($_SESSION['token_time']) && empty($_SESSION['token']) && empty($_SESSION['token_time']) && isset($_SESSION['rememberMe']) && $_SESSION['rememberMe'] === true) {
+        header('Location: http://localhost/');
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +17,7 @@
     <title>Tableau de Bord - Gestion des Contacts</title>
     <!-- Inclure les styles Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="dashboard.js" defer></script>
 </head>
 <body>
 
@@ -17,7 +29,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">            
             <li class="nav-item">
-                <a class="nav-link" href="#">Se déconnecter</a>
+                <a id="logout" class="nav-link" href="#">Se déconnecter</a>
             </li>
         </ul>
     </div>

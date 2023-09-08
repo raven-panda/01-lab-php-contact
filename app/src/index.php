@@ -1,3 +1,34 @@
+<?php
+    session_start();
+
+    $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
+    $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
+
+    if (isset($_SESSION['token']) && isset($_SESSION['token_time']) && !empty($_SESSION['token']) && !empty($_SESSION['token_time'])) {
+        try {
+            $sql = 'SELECT email, password, token, token_time FROM user WHERE token = :token';
+            $sth = $mysqlConnection->prepare($sql);
+        
+            $sth->bindParam(':token', $_SESSION['token'], PDO::PARAM_STR);
+        
+            $sth->execute();
+    
+            $row = $sth->fetch(PDO::FETCH_ASSOC);
+
+            if ($row['token'] === $_SESSION['token'] || $row['token_time'] >= time()) {
+                $email = $row['email'];
+                $password = $row['password'];
+    
+                header('Location: http://localhost/dashboard/dashboard.php');
+            } else {
+                unset($_SESSION['token'], $_SESSION['token_time']);
+            }
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

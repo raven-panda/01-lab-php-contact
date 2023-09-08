@@ -1,1 +1,0 @@
-Le front n'accède pas à index.html direct.

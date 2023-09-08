@@ -16,7 +16,7 @@ form.addEventListener('submit', function(e) {
         })
         .then(data => {
             if (data.ok === "true") {
-                window.location.href = 'http://localhost/index.html';
+                window.location.href = 'http://localhost/index.php';
             } else {
                 console.log(data);
             }

@@ -13,7 +13,7 @@
 
         try {
 
-            $sql = 'SELECT email, password FROM user WHERE email = :email';
+            $sql = 'SELECT email, password, token, token_time FROM user WHERE email = :email';
             $sth = $mysqlConnection->prepare($sql);
 
             $sth->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
@@ -23,18 +23,26 @@
             $row = $sth->fetch();
 
             if (!$row === false && password_verify($_POST['password'], $row['password'])) {
-                if (isset($_POST['rememberMe']) && !empty($_POST['rememberMe'])) {
-                    
-
-                    $response['ok'] = 'true';
-                    $response['error'] = 'none';
-                } else {
-                    $response['ok'] = 'true';
-                    $response['error'] = 'none';
-                }
                 session_start();
-                $_SESSION['token'] = bin2hex(random_bytes(32));
-                $_SESSION['token_time'];
+                try {
+                    if (isset($_POST['rememberMe'])) {
+                        $_SESSION['token'] = bin2hex(random_bytes(32));
+                        $_SESSION['token_time'] = time() + 300;
+                        $_SESSION['rememberMe'] = true;
+        
+                        $sql = 'UPDATE user SET token = :token, token_time = :token_time WHERE email = :email';
+                        $sth = $mysqlConnection->prepare($sql);
+        
+                        $sth->bindParam(':email', $_POST['email'], PDO::PARAM_STR);
+                        $sth->bindParam(':token', $_SESSION['token'], PDO::PARAM_STR);
+                        $sth->bindParam(':token_time', $_SESSION['token_time'], PDO::PARAM_STR);
+        
+                        $sth->execute();
+                    }
+                } catch (Exception $e) {
+                    echo $e;
+                }
+
             } else {
                 $response['ok'] = 'false';
                 $response['error'] = 'creds_not_found';

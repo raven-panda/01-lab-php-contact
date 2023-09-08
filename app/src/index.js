@@ -20,7 +20,7 @@ form.addEventListener('submit', function (e) {
         })
         .then(data => {
             if (data.ok === "true") {
-                window.location.href = 'http://localhost/dashboard/dashboard.html';
+                window.location.href = 'http://localhost/dashboard/dashboard.php';
                 console.log('yessss');
             } else {
                 console.log(data);
