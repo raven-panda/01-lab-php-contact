@@ -1,43 +1,43 @@
 # Lab PHP : Project 1 - Contact
 
-Ce projet consiste à intégrer une application Web et de réaliser la partie back-end d'une petite application qui permet d'ajouter des contacts.
+This project involves integrating a web application and implementing the back-end part of a small application for adding contacts.
 
-Réaliser les codes PHP à partir des fichiers fournis (*index.html*, *dashboard.html*, *signup.html*).
+Create PHP code based on the provided files (*index.html*, *dashboard.html*, *signup.html*).
 
-## Consigne
+## Instructions
 
 ### Docker
 
-- Un container de Base de Données
+- A database container
 
-- Un container Apache + PHP
+- A container Apache + PHP
 
-### Nom de domaine
+### Domain Name
 
-- On pourra atteindre ce projet avec le nom de domaine : **php-dev-1.online**.
+- We would access this project using the domain name : **php-dev-1.online**.
 
-### Organiser une Base de Données
+### Database organization
 
-- Faire un MCD avec MySQL Workbench pour une app qui **permet aux utilisateurs de s'inscrire**.
+- Create an Entity-Relationship Diagram (ERD) using MySQL Workbench for an app that **allows users to register**.
 
-- Mettre en oeuvre la BDD à partir d'un **fichier .sql**.
-    - Il faut stocker leurs **nom**, **prénom**, **email** qui servira d'identifiant et le **mot de passe**.
-    - Cette application permettra aussi aux utilisateurs de **stocker des contacts** avec le **nom**, **prénom** et **email** du contact.
-    - Quand l'utilisateur se connectera il ne **verra que ses contacts à lui**.
+- Implement the database from an **.sql file**.
+    - Store their **name**, **firstname**, **email** (which will serve as an identifier) and the **password**.
+    - This app will also allow users to **store contacts** with the contact's **name**, **firstname** and **email**.
+    - When the user logs in, they should only **see their own contacts**.
 
-### Formulaire d'inscription
+### Registration form
 
-- Script PHP qui permet de stocker des **utilisateurs de l'app**.
+- PHP script that allows for the storage of **app users**.
 
-  **/!\ CRYPTER LES MOTS DE PASSES /!\\**
+  **/!\ ENCRYPT PASSWORDS /!\\**
 
-### Formulaire de connexion
+### Login form
 
-- Script PHP qui vérifie si l'utilisateur existe bien et si c'est le cas, rediriger l'utilisateur sur la page du dashboard.
+- PHP script that verifies if the user exists and, if so, redirects the user to the dashboard page.
 
-### Formulaire d'ajout de contact
+### Add Contact form
 
-- Script PHP qui permet d'**ajouter dans la BDD un contact**.
-    - On ne peut **pas mettre deux fois** le **même email d'un contact** *-> Afficher 'Cette adresse mail existe déjà'*.
+- PHP script that allows **adding a contact to the database**.
+    - It should **not allow adding the same contact's email twice** *-> Display 'This email address already exists'*.
 
-- **Rattacher ce contact à l'utilisateur** et ce nouveau contact **devra apparaître dans la liste**.
+- **Associate this contact with the user**, and this new contact should **appear in the list**.
