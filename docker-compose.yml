@@ -2,9 +2,9 @@ version: '3.8'
 services:
   app:
     build:
-      dockerfile: ./.docker/app/Dockerfile.dev
+      dockerfile: ./app/Dockerfile
     ports:
-      - 80:80
+      - 3000:3000
     volumes:
       - type: bind
         source: ./app/src
