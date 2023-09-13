@@ -1,43 +1,21 @@
 <?php
     session_start();
 
-    $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
-    $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
-
-    if (isset($_SESSION['token']) && isset($_SESSION['token_time']) && !empty($_SESSION['token']) && !empty($_SESSION['token_time'])) {
-        try {
-            $sql = 'SELECT email, password, token, token_time FROM user WHERE token = :token';
-            $sth = $mysqlConnection->prepare($sql);
-        
-            $sth->bindParam(':token', $_SESSION['token'], PDO::PARAM_STR);
-        
-            $sth->execute();
-    
-            $row = $sth->fetch(PDO::FETCH_ASSOC);
-
-            if ($row['token'] === $_SESSION['token'] || $row['token_time'] >= time()) {
-                $email = $row['email'];
-                $password = $row['password'];
-    
-                header('Location: http://localhost/dashboard/dashboard.php');
-            } else {
-                unset($_SESSION['token'], $_SESSION['token_time']);
-            }
-        } catch (Exception $e) {
-            echo $e;
-        }
+    if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
+        header('Location: ./dashboard/dashboard.php');
+    } else {
+        var_dump($_SESSION);
     }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire de Connexion</title>
     <!-- Inclure les styles Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./style.css">
     <script src="./index.js" defer></script>
     <noscript>You need javascript to run this app</noscript>
 </head>
@@ -63,15 +41,15 @@
         <!-- Champ : Adresse e-mail -->
         <div class="form-group">
             <label for="email">Adresse e-mail</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-            <div class="invalid-feedback"></div>
+            <input type="email" pattern="^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$" class="form-control" id="email" name="email" value="bestbassistoftheworld@yeah.mtl" required>
+            <div class="invalid-feedback">Veuillez remplir ce champ</div>
         </div>
 
         <!-- Champ : Mot de passe -->
         <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" class="form-control" id="password" name="password" required>
-            <div class="invalid-feedback"></div>
+            <div class="invalid-feedback">Veuillez remplir ce champ</div>
         </div>
 
         <!-- Option : Se souvenir de moi -->

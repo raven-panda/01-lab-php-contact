@@ -96,7 +96,7 @@ form.addEventListener('submit', function(e) {
         })
         .then(data => {
             if (data.valid === "true") {
-                //window.location.href = 'http://localhost/index.php';
+                window.location.href = '../index.php';
                 console.log(data);
             } else {
                 console.log(data);

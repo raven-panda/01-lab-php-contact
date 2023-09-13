@@ -1,14 +1,15 @@
 const form = document.querySelector('form');
 const inputs = form.querySelectorAll('input');
-const feedback = form.querySelectorAll('.invalid-feedback');
+const feedback = form.querySelector('#email + .invalid-feedback');
 
 form.addEventListener('submit', function (e) {
+    e.preventDefault();
     if (form.checkValidity() === true) {
         form.classList.remove('was-validated');
-        e.preventDefault();
+
         const formdata = new FormData(form);
 
-        fetch('./login/login.php', {
+        fetch('./session/login.php', {
             method: 'POST',
             body: formdata
         })
@@ -19,15 +20,15 @@ form.addEventListener('submit', function (e) {
             return res.json();
         })
         .then(data => {
-            if (data.ok === "true") {
-                window.location.href = 'http://localhost/dashboard/dashboard.php';
+            if (data.valid === "true") {
+                window.location.href = './dashboard/dashboard.php';
                 console.log('yessss');
             } else {
                 console.log(data);
-                if (data.error = "creds_not_found") {
+                if (data.error === "no_creds") {
                     form.classList.add('was-validated');
                     inputs.forEach(inp => inp.value = '');
-                    feedback.forEach(el=> el.textContent = "L'adresse mail ou le mot de passe est incorrect.");
+                    feedback.textContent = "L'adresse mail ou le mot de passe est incorrect.";
                 }
             }
         })
@@ -41,8 +42,6 @@ form.addEventListener('submit', function (e) {
         inputs.forEach(inp => {
             if (inp.checkValidity() == false) inp.textContent = '';
         });
-        feedback.forEach(el => el.textContent = "Veuillez remplir ce champ");
-        e.preventDefault();
 
     }
 })

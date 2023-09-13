@@ -1,5 +1,5 @@
-form.was-validated #custom {
-  color: #000;
+@media (max-width: 768px) {
+    .nav-item.dropdown#account-settings #account-menu-btn {
+        display: none;
+    }
 }
-
-/*# sourceMappingURL=style.css.map */

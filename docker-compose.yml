@@ -9,7 +9,11 @@ services:
       - type: bind
         source: ./app/src
         target: /var/www/html
+      - type: bind
+        source: ./app/php.ini
+        target: /usr/local/etc/php/php.ini
     environment:
+      - MYSQL_HOST=database
       - MYSQL_DATABASE=contactdb
       - MYSQL_USER=client
       - MYSQL_PASSWORD=Cha171205
@@ -25,6 +29,7 @@ services:
         source: ./database
         target: /docker-entrypoint-initdb.d
     environment:
+      - MYSQL_HOST=database
       - MYSQL_ROOT_PASSWORD=ImGroot3301*$
       - MYSQL_DATABASE=contactdb
       - MYSQL_USER=client

@@ -1,22 +1,36 @@
 <?php
     session_start();
 
-    $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
-    $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
+    include '../session/functions.php';
 
-    if (!isset($_SESSION['token']) && !isset($_SESSION['token_time']) && empty($_SESSION['token']) && empty($_SESSION['token_time']) && isset($_SESSION['rememberMe']) && $_SESSION['rememberMe'] === true) {
-        header('Location: http://localhost/');
-    }
+    if (check_session_state()) {
+        
+        $mysqlHost = getenv('MYSQL_HOST');
+        $mysqlDb = getenv('MYSQL_DATABASE');
+        $mysqlUsr = getenv('MYSQL_USER');
+        $mysqlPw = getenv('MYSQL_PASSWORD');
+        
+        if ($mysqlHost && $mysqlDb && $mysqlUsr && $mysqlPw) {
+            $dsn = 'mysql:host='. $mysqlHost .';dbname='. $mysqlDb .';charset=utf8';
+            $mysqlConnection = new PDO($dsn, $mysqlUsr, $mysqlPw);
+        }
+        
+        var_dump($_SESSION, ini_get('session.gc_maxlifetime'));
+
+    } else {
+        header('Location: ../session/logout.php');
+    };
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord - Gestion des Contacts</title>
     <!-- Inclure les styles Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../style.css">
     <script src="dashboard.js" defer></script>
     <noscript>You need javascript to run this app</noscript>
 </head>
@@ -24,13 +38,19 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Mon Tableau de Bord</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button id="burger-menu" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">            
-            <li class="nav-item">
-                <a id="logout" class="nav-link" href="#">Se déconnecter</a>
+        <ul class="navbar-nav ml-auto">
+            <li id="account-settings" class="nav-item dropdown">
+                <a id="account-menu-btn" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Mon compte
+                </a>
+                <div id="account-menu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item logout" href="#">Se déconnecter</a>
+                </div>
             </li>
         </ul>
     </div>
