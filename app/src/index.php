@@ -1,6 +1,6 @@
 <?php
     session_start();
-    phpinfo();
+
     $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
     $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
 
@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./index.js" defer></script>
+    <noscript>You need javascript to run this app</noscript>
 </head>
 <body>
 
