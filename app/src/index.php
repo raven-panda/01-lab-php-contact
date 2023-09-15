@@ -3,8 +3,6 @@
 
     if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
         header('Location: ./dashboard/dashboard.php');
-    } else {
-        var_dump($_SESSION);
     }
 ?>
 
@@ -16,8 +14,12 @@
     <title>Formulaire de Connexion</title>
     <!-- Inclure les styles Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="./index.js" defer></script>
-    <noscript>You need javascript to run this app</noscript>
+    <link rel="stylesheet" href="style.css">
+    <script src="./index.js" type="module" defer></script>
+    <noscript>
+        <h1>You need javascript to run this app</h1>
+        <style>.navbar, div {display: none;}</style>
+    </noscript>
 </head>
 <body>
 
@@ -34,7 +36,6 @@
         </ul>
     </div>
 </nav>
-
 <div class="container mt-5">
     <h2>Formulaire de Connexion</h2>
     <form action="#" method="POST" novalidate>
@@ -68,6 +69,22 @@
     </form>
 </div>
 
+<div class="modal" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Vous avez été déconnecté</h5>
+      </div>
+      <div class="modal-body">
+        <p>Votre session a expiré en raison d'une inactivité prolongée.</p>
+        <p>Veuillez vous reconnecter pour continuer à utiliser l'application.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Inclure les scripts Bootstrap -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,23 +1,7 @@
 <?php
-    session_start();
+    include '../_library/php/functions.php';
 
-    include '../session/functions.php';
-
-    if (check_session_state()) {
-        
-        $mysqlHost = getenv('MYSQL_HOST');
-        $mysqlDb = getenv('MYSQL_DATABASE');
-        $mysqlUsr = getenv('MYSQL_USER');
-        $mysqlPw = getenv('MYSQL_PASSWORD');
-        
-        if ($mysqlHost && $mysqlDb && $mysqlUsr && $mysqlPw) {
-            $dsn = 'mysql:host='. $mysqlHost .';dbname='. $mysqlDb .';charset=utf8';
-            $mysqlConnection = new PDO($dsn, $mysqlUsr, $mysqlPw);
-        }
-        
-        var_dump($_SESSION, ini_get('session.gc_maxlifetime'));
-
-    } else {
+    if (!check_session_state()) {
         header('Location: ../session/logout.php');
     };
 ?>
@@ -32,7 +16,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../style.css">
     <script src="dashboard.js" defer></script>
-    <noscript>You need javascript to run this app</noscript>
+    <noscript>
+        <h1>You need javascript to run this app</h1>
+        <style>.navbar, div {display: none;}</style>
+    </noscript>
 </head>
 <body>
 
@@ -77,6 +64,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Ajouter Contact</button>
             </form>
+            <input type="hidden" name="tokexp" id="tokexp" value="<?php echo $tokenTimeout; ?>">
         </div>
         <div class="col-md-6">
             <!-- Liste des contacts -->

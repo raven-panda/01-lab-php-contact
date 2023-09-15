@@ -1,3 +1,15 @@
+.modal.show {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+}
+.modal .modal-dialog {
+    margin: 7rem auto;
+}
+.modal p {
+    margin: 0;
+}
+
 @media (max-width: 768px) {
     .nav-item.dropdown#account-settings #account-menu-btn {
         display: none;

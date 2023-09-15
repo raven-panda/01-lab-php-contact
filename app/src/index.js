@@ -2,6 +2,20 @@ const form = document.querySelector('form');
 const inputs = form.querySelectorAll('input');
 const feedback = form.querySelector('#email + .invalid-feedback');
 
+const modal = document.querySelector('.modal');
+
+const logoutReason = new URLSearchParams(window.location.search);
+
+if (logoutReason.get('logout') === 'invalid_token') {
+    modal.classList.add('show');
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target.dataset.dismiss === 'modal') {
+        modal.classList.remove('show');
+    }
+})
+
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (form.checkValidity() === true) {
@@ -22,7 +36,7 @@ form.addEventListener('submit', function (e) {
         .then(data => {
             if (data.valid === "true") {
                 window.location.href = './dashboard/dashboard.php';
-                console.log('yessss');
+                console.log(data);
             } else {
                 console.log(data);
                 if (data.error === "no_creds") {
