@@ -29,6 +29,25 @@
                 $sth->execute();
     
             }
+
+            /* Makes a remember me token */
+            function token_remember($conn, $creds) {
+    
+                $token = bin2hex(random_bytes(32));
+                $tokenTimeout = time() + (3600 * 72);
+
+                setcookie('token', $token, $tokenTimeout, '/', 'php-dev-1.online', false, true);
+    
+                $sql = 'UPDATE user SET token = :token, token_time = :token_time WHERE email = :email';
+                $sth = $conn->prepare($sql);
+    
+                $sth->bindParam(':email', $creds, PDO::PARAM_STR);
+                $sth->bindParam(':token', $token, PDO::PARAM_STR);
+                $sth->bindParam(':token_time', $tokenTimeout, PDO::PARAM_STR);
+    
+                $sth->execute();
+    
+            }
     
             $mysqlHost = getenv('MYSQL_HOST');
             $mysqlDb = getenv('MYSQL_DATABASE');
@@ -55,13 +74,17 @@
                     $result = $sth->fetch(PDO::FETCH_ASSOC);
         
                     if ($result && password_verify($password, $result['password'])) {
-                        token_session($mysqlConnection, $email);
+                        if (isset($_POST['rememberMe'])) {
+                            token_remember($mysqlConnection, $email);
+                        } else {
+                            token_session($mysqlConnection, $email);
+                        }
 
                         $firstname = $result['firstname'];
                         $name = $result['name'];
     
                         $response['valid'] = 'true';
-                        $response['context'] = [$firsname, $name];
+                        $response['context'] = [$firstname, $name];
                     } else {
                         $response['error'][] = 'no_creds';
                     }

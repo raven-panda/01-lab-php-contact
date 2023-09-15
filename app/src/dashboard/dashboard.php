@@ -1,7 +1,7 @@
 <?php
     include '../_library/php/functions.php';
 
-    if (!check_session_state()) {
+    if (!check_session_state() && !check_remember_state()) {
         header('Location: ../session/logout.php');
     };
 ?>

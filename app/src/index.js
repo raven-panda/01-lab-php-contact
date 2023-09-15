@@ -10,6 +10,8 @@ if (logoutReason.get('logout') === 'invalid_token') {
     modal.classList.add('show');
 }
 
+history.replaceState({}, document.title, "/");
+
 document.addEventListener('click', function(e) {
     if (e.target.dataset.dismiss === 'modal') {
         modal.classList.remove('show');

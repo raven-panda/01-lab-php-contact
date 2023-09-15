@@ -4,7 +4,7 @@ class Session {
      * @param {Boolean|String} timeout Définir pourquoi l'utilisateur a été déconnécté
      */
     logout(reason = false) {
-        window.location.href = `../session/logout.php?timeout=${reason}`;
+        window.location.href = `../session/logout.php?reason=${reason}`;
     }
 
     /**
@@ -27,7 +27,7 @@ class Session {
         .then(data => {
             if (data.context === 'invalid_token') {
                 this.logout(data.context);
-            } else {
+            } else if (data.new_timeout) {
                 tokenField.value = data.new_timeout;
             }
         })

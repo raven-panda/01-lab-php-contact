@@ -1,7 +1,7 @@
 <?php
-    session_start();
+    include './_library/php/functions.php';
 
-    if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
+    if (check_session_state() || check_remember_state()) {
         header('Location: ./dashboard/dashboard.php');
     }
 ?>
