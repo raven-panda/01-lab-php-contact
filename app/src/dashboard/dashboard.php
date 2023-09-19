@@ -2,8 +2,7 @@
     include '../_library/php/functions.php';
 
     $token = getToken();
-
-    $user = getUser($token);
+    $user = getUser();
 
     if (!check_session_state() && !check_remember_state() || !$token || !$user) {
         header('Location: ../session/logout.php');
@@ -87,11 +86,21 @@
             <div class="col-md-6">
                 <!-- Contacts list -->
                 <h3>Liste des Contacts</h3>
-                <ul id="contacts-list" class="list-group">
-                    <li class="list-group-item">John Doe - john.doe@example.com</li>
-                    <li class="list-group-item">Jane Smith - jane.smith@example.com</li>
-                    <li class="list-group-item">Michael Johnson - michael.johnson@example.com</li>
-                </ul>
+                <table id="contacts-list" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            echo getContacts();
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

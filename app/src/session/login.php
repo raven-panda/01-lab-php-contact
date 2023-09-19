@@ -86,20 +86,20 @@
                         $response['valid'] = 'true';
                         $response['context'] = [$firstname, $name];
                     } else {
-                        $response['error'][] = 'no_creds';
+                        $response['error'] = 'no_creds';
                     }
         
                 } catch (Exception $err) {
-                    $response['error'][] = $err->getMessage();
+                    $response['error'] = $err->getMessage();
                     error_log($err->getMessage());
                 }
                 
             } else {
-                $response['error'][] = 'no_db';
+                $response['error'] = 'no_db';
             }
     
         } else {
-            $response['error'][] = 'fields_incorrect';
+            $response['error'] = 'fields_incorrect';
         }
         time_sleep_until(time() + 1);
         echo json_encode($response);

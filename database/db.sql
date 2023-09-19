@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `contactdb`.`contact` (
   `name` VARCHAR(255) NOT NULL,
   `firstname` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `user_email` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -60,13 +61,13 @@ CREATE TABLE IF NOT EXISTS `contactdb`.`user_contact` (
   CONSTRAINT `fk_user_contact_user`
     FOREIGN KEY (`user_id`)
     REFERENCES `contactdb`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_contact_contact1`
     FOREIGN KEY (`contact_id`)
     REFERENCES `contactdb`.`contact` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 

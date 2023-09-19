@@ -43,6 +43,22 @@ class Session {
     }
 }
 
+function addContact(data) {
+    fetch('../_library/php/add-contact.php', {
+        method: 'POST',
+        body: data
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Server error');
+        }
+        return res.json();
+    })
+    .then(data => {
+        contactsList.innerHTML = data.context;
+        console.log(data);
+    })
+}
 
 
 // Instanciation de la classe Session
@@ -58,7 +74,8 @@ const burger = document.querySelector('#burger-menu'),
 
 const tokenField = document.querySelector('#tokexp');
 
-const addContact = document.querySelector('#add-contact-form');
+const addContactForm = document.querySelector('#add-contact-form'), 
+      contactsList = document.querySelector('#contacts-list tbody');
 
 session.checkAndUpdateTokenValidity();
 
@@ -86,17 +103,10 @@ document.addEventListener('click', function(e) {
     }
 })
 
-addContact.addEventListener('submit', function (e) {
+addContactForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (addContact.checkValidity()) {
-        const contactsList = document.querySelector('#contacts-list');
-        const formData = new FormData(addContact);
-
-        // Récupération et injection des informations du contact
-        const firstname = formData.get('prenom'),
-              name = formData.get('nom'),
-              email = formData.get('email');
-
-        contactsList.innerHTML += `<li class="list-group-item">${firstname} ${name} - ${email}</li>`;
+    if (addContactForm.checkValidity()) {
+        const formData = new FormData(addContactForm);
+        addContact(formData);
     }
 })
