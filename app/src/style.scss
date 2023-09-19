@@ -1,0 +1,40 @@
+$black : rgb(0, 0, 0);
+@function lessOpacity($color, $factor) {
+    $newColor: rgba(red($color), green($color), blue($color), alpha($color) * $factor);
+    @return $newColor;
+}
+.modal.show {
+    display: block;
+    background-color: lessOpacity($black, 0.5);
+    padding: 15px;
+}
+p {
+    margin: 0;
+}
+.modal .modal-dialog {
+    margin: 7rem auto;
+}
+.custom {
+    &.dropdown-item-text {
+        border-bottom: solid 1px lessOpacity($black, 0.1);
+    }
+}
+.custom-box {
+    display: flex;
+    flex-direction: row;
+    min-width: 200px;
+    padding-bottom: 20px;
+    gap: 20px;
+    p {
+        text-wrap: nowrap;
+    }
+}
+.actions {
+    padding-top: 7px;
+}
+
+@media (max-width: 768px) {
+    .nav-item.dropdown#account-settings #account-menu-btn {
+        display: none;
+    }
+}
