@@ -49,13 +49,16 @@ class Session {
 const session = new Session();
 
 // Récupération des éléments interactifs
-const dropdown = document.querySelector('#account-settings');
-const ddBtn = document.querySelector('#account-menu-btn');
-const ddMenu = document.querySelector('#account-menu');
+const dropdown = document.querySelector('#account-settings'),
+      ddBtn = document.querySelector('#account-menu-btn'),
+      ddMenu = document.querySelector('#account-menu');
 
-const burger = document.querySelector('#burger-menu');
-const navCol = document.querySelector('#navbarNav');
+const burger = document.querySelector('#burger-menu'),
+      navCol = document.querySelector('#navbarNav');
+
 const tokenField = document.querySelector('#tokexp');
+
+const addContact = document.querySelector('#add-contact-form');
 
 session.checkAndUpdateTokenValidity();
 
@@ -64,23 +67,36 @@ document.addEventListener('click', function(e) {
     if (e.target.classList.contains('logout')) {
         session.logout('by_user');
     } else {
-        console.log('token_valid');
+        console.log(e.target);
         
-        // Permute le menu déroulant 'Mon Compte' quand le clic est sur celui ci
-        if (e.target === ddBtn) {
+        // Affiche/cache le menu déroulant 'Mon Compte' quand le clic est sur celui ci (desktop) ou sur le burger (mobile)
+        if (e.target === burger || burger.contains(e.target) || e.target === ddBtn || ddMenu.classList.contains('show') && !ddMenu.contains(e.target)) {
+            
             ddMenu.classList.toggle('show');
             dropdown.classList.toggle('show');
+
+            if (window.matchMedia('(max-width: 992px)').matches) {
+                burger.classList.toggle('show');
+                navCol.classList.toggle('show');
+            }
+
         }
 
-        // Même chose mais pour les écrans tactiles
-        if (e.target === burger || e.target === burger.querySelector('.navbar-toggler-icon')) {
-            burger.classList.toggle('show');
-            navCol.classList.toggle('show');
-            ddMenu.classList.toggle('show');
-            dropdown.classList.toggle('show');
-        }
+        //session.checkAndUpdateTokenValidity();
+    }
+})
 
-        session.checkAndUpdateTokenValidity();
+addContact.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (addContact.checkValidity()) {
+        const contactsList = document.querySelector('#contacts-list');
+        const formData = new FormData(addContact);
 
+        // Récupération et injection des informations du contact
+        const firstname = formData.get('prenom'),
+              name = formData.get('nom'),
+              email = formData.get('email');
+
+        contactsList.innerHTML += `<li class="list-group-item">${firstname} ${name} - ${email}</li>`;
     }
 })
