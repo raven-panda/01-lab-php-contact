@@ -1,8 +1,4 @@
 <?php
-    $fieldsValidity = array(
-        'valid' => 'true',
-        'error' => [],
-    );
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_repeat'])
     && !empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_repeat']))
     {
@@ -40,27 +36,22 @@
                     $sth->execute();
             
                 } catch (Exception $e) {
-                    $fieldsValidity['valid'] = 'false';
                     if ($e->getCode() === '23000') {
-                        $fieldsValidity['error'][] = 'em-ae';
+                        echo 'Adresse email déjà utilisée.';
                     } else {
-                        $fieldsValidity['error'][] = '500';
+                        echo 'JSP';
                     }
                 }
             } else {
-                $fieldsValidity['valid'] = 'false';
-                $fieldsValidity['error'][] = 'pw-d';
+                echo 'Les mots de passes correspondent pas.';
             }
         } else {
-            $fieldsValidity['valid'] = 'false';
-            $fieldsValidity['error'][] = 'em-p';
+            echo "Ce n'est pas un email.";
         }
 
     } else {
-        $fieldsValidity['valid'] = 'false';
-        $fieldsValidity['error'][] = 'fields_incorrect';
+        echo 'Champs incorrects.';
     }
-
-    echo json_encode($fieldsValidity);
+    
     exit();
 ?>
