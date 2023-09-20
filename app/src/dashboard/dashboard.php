@@ -1,13 +1,13 @@
 <?php
     include '../_library/php/functions.php';
-
+    var_dump($_SESSION);
     $token = getToken();
 
-    $user = getUser($token);
+    $user = getUser();
 
     if (!check_session_state() && !check_remember_state() || !$token || !$user) {
-        header('Location: ../session/logout.php');
-    };
+        header('Location: http://'. $_SERVER["HTTP_HOST"] .'/session/logout.php?reason=invalid_token');
+    } else {
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +25,7 @@
     </noscript>
 </head>
 <body>
+    <!-- Header and Account Dropdown Menu -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Mon Tableau de Bord</a>
         <button id="burger-menu" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +52,6 @@
                             </div>
                         </div>
                         <div class="actions">
-                            <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item logout" href="#">Se déconnecter</a>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Add contact form -->
-                <form id="add-contact-form" name="add-contact-form" action="#" novalidate>
+                <form id="add-contact-form" name="add-contact-form" action="../_library/php/add-contact.php" method="post">
                     <div class="form-group">
                         <label for="nom">Nom</label>
                         <input type="text" class="form-control" id="nom" name="nom" required>
@@ -82,15 +82,23 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Ajouter Contact</button>
                 </form>
-                <input type="hidden" name="tokexp" id="tokexp" value="">
+                <input type="hidden" name="tokexp" id="tokexp" value="<?php echo $token_to; ?>">
             </div>
             <div class="col-md-6">
                 <!-- Contacts list -->
                 <h3>Liste des Contacts</h3>
                 <ul id="contacts-list" class="list-group">
-                    <li class="list-group-item">John Doe - john.doe@example.com</li>
-                    <li class="list-group-item">Jane Smith - jane.smith@example.com</li>
-                    <li class="list-group-item">Michael Johnson - michael.johnson@example.com</li>
+                    <?php
+                        $contacts = getUserContacts();
+                        if ($contacts === 'no_contacts') {
+                            echo '<li class="list-group-item">Aucun contacts. Veuillez en ajouter.</li>';
+                        } else {
+                            foreach($contacts as $row) {
+                                echo '<li class="list-group-item">'. $row['firstname'] .' '. $row['name'] .' - '. $row['email'] .'</li>';
+                            }
+                        }
+
+                    ?>
                 </ul>
             </div>
         </div>
@@ -100,3 +108,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php
+    }
+?>

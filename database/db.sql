@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `contactdb`.`user` (
   `password` VARCHAR(255) NOT NULL,
   `signup_date` DATETIME NOT NULL,
   `token` VARCHAR(255) NOT NULL,
-  `token_time` VARCHAR(255) NOT NULL,
+  `tokie_time` VARCHAR(255),
   PRIMARY KEY (`id`),
   UNIQUE KEY (`email`))
 ENGINE = InnoDB;
@@ -45,30 +45,9 @@ CREATE TABLE IF NOT EXISTS `contactdb`.`contact` (
   `name` VARCHAR(255) NOT NULL,
   `firstname` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `user_email` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `contactdb`.`user_contact`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `contactdb`.`user_contact` (
-  `user_id` INT NOT NULL,
-  `contact_id` INT NOT NULL,
-  INDEX `fk_user_contact_user_idx` (`user_id` ASC) VISIBLE,
-  INDEX `fk_user_contact_contact1_idx` (`contact_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_contact_user`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `contactdb`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_contact_contact1`
-    FOREIGN KEY (`contact_id`)
-    REFERENCES `contactdb`.`contact` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

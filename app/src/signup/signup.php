@@ -23,13 +23,14 @@
         if ($emailValid) {
             if ($pwSame) {
                 try {
+                    time_sleep_until(time() + 1);
 
                     $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
                     $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
 
                     $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
             
-                    $sql = 'INSERT INTO user (name, firstname, email, password, token, token_time, signup_date) VALUES (:nom, :prenom, :email, :password, "0", "0", CURDATE());';
+                    $sql = 'INSERT INTO user (name, firstname, email, password, token, tokie_time, signup_date) VALUES (:nom, :prenom, :email, :password, "0", "0", CURDATE());';
                     $sth = $mysqlConnection->prepare($sql);
             
                     $sth->bindParam(':nom', $_POST['nom'], PDO::PARAM_STR);
