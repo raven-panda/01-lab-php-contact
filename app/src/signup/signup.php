@@ -6,6 +6,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prenom']) && isset($_POST['nom']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_repeat'])
     && !empty($_POST['prenom']) && !empty($_POST['nom']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['password_repeat']))
     {
+        include '../_library/php/functions.php';
         // Name fields
         $firstname = htmlspecialchars($_POST['prenom']);
         $name = htmlspecialchars($_POST['nom']);
@@ -24,9 +25,6 @@
             if ($pwSame) {
                 try {
                     time_sleep_until(time() + 1);
-
-                    $dsn = 'mysql:host=database;dbname='. getenv('MYSQL_DATABASE') .';charset=utf8';
-                    $mysqlConnection = new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASSWORD'));
 
                     $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
             

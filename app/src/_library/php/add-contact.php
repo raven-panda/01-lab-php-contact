@@ -14,13 +14,7 @@
 
             try {
 
-                $mysqlHost = getenv('MYSQL_HOST');
-                $mysqlDb = getenv('MYSQL_DATABASE');
-                $mysqlUsr = getenv('MYSQL_USER');
-                $mysqlPw = getenv('MYSQL_PASSWORD');
-        
-                $dsn = 'mysql:host='. $mysqlHost .';dbname='. $mysqlDb .';charset=utf8';
-                $mysqlConnection = new PDO($dsn, $mysqlUsr, $mysqlPw);
+                $mysqlConnection = databaseConnection();
 
                 $sql = 'INSERT INTO contact (name, firstname, email, user_email) VALUES (:lastname, :firstname, :email, :user_email)';
                 

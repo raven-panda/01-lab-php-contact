@@ -1,10 +1,11 @@
 <?php
     include '../_library/php/functions.php';
-    var_dump($_SESSION);
-    $token = getToken();
 
+    // Récupération des infos nécéssaires au fonctionnement de l'application.
+    $token = getToken();
     $user = getUser();
 
+    // Vérifie qu'un jeton est bien en place pour valider la connection (automatique ou non).
     if (!check_session_state() && !check_remember_state() || !$token || !$user) {
         header('Location: http://'. $_SERVER["HTTP_HOST"] .'/session/logout.php?reason=invalid_token');
     } else {
@@ -52,7 +53,7 @@
                             </div>
                         </div>
                         <div class="actions">
-                            <a class="dropdown-item logout" href="#">Se déconnecter</a>
+                            <a class="dropdown-item logout" href="../session/logout.php?reason=by_user">Se déconnecter</a>
                         </div>
                     </div>
                 </li>
@@ -89,6 +90,7 @@
                 <h3>Liste des Contacts</h3>
                 <ul id="contacts-list" class="list-group">
                     <?php
+                        // Ajout des contacts à l'interface.
                         $contacts = getUserContacts();
                         if ($contacts === 'no_contacts') {
                             echo '<li class="list-group-item">Aucun contacts. Veuillez en ajouter.</li>';

@@ -1,5 +1,8 @@
 <?php
     session_start();
+    /**
+     * Fonction pour connecter PHP à la BDD.
+     */
     function databaseConnection() {
         
         try {
@@ -18,10 +21,16 @@
         return $mysqlConnection;
     }
 
+    /**
+     * Fonction pour déconnecter l'utilisateur.
+     */
     function logout($reason) {
         header('Location: http://'. $_SERVER['HTTP_HOST'] .'/session/logout.php?reason='. $reason);
     }
 
+    /**
+     * Fonctions pour vérifier la validité de la connection automatique.
+     */
     function check_session_state() {
         if (isset($_SESSION['token']) && !empty($_SESSION['token'])) {
             return true;
@@ -29,9 +38,10 @@
             return false;
         }
     }
-
     function check_remember_state() {
         if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
+
+            $token = getToken();
     
             try {
 
@@ -60,6 +70,9 @@
         }
     }
 
+    /**
+     * Fonctions pour récupérer des infos de connection sur l'utilisateur (jeton, infos et contacts).
+     */
     function getToken() {
         if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
             return $_COOKIE['token'];
@@ -90,7 +103,6 @@
         }
 
     }
-
     function getUserContacts() {
         $user_email = htmlspecialchars(getUser()['email']);
 

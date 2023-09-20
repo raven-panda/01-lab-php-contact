@@ -1,8 +1,9 @@
 <?php
     include './_library/php/functions.php';
-    var_dump($_SESSION);
+
+    // Vérifie si il y a déjà une session active ou un jeton de connexion pou
     if (check_session_state() || check_remember_state()) {
-        header('Location: http://'. $_SERVER['HTTP_HOST'] .'/dashboard/dashboard.php');
+        header('Location: http://'. $_SERVER['HTTP_HOST'] .'/session/auto-login.php');
     }
 ?>
 

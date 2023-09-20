@@ -48,7 +48,7 @@
             
             time_sleep_until(time() + 1);
 
-            $mysqlConnection = dataBaseConnection();
+            $mysqlConnection = databaseConnection();
     
             if ($mysqlConnection) {
         
