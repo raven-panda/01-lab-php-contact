@@ -25,13 +25,13 @@ USE `contactdb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `contactdb`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  `firstname` VARCHAR(100) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(70) NOT NULL,
+  `firstname` VARCHAR(70) NOT NULL,
+  `email` VARCHAR(70) NOT NULL,
+  `password` VARCHAR(70) NOT NULL,
   `signup_date` DATETIME NOT NULL,
-  `token` VARCHAR(255) NOT NULL,
-  `tokie_time` VARCHAR(255),
+  `token` VARCHAR(70) NOT NULL,
+  `tokie_time` VARCHAR(70),
   PRIMARY KEY (`id`),
   UNIQUE KEY (`email`))
 ENGINE = InnoDB;
@@ -42,10 +42,21 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `contactdb`.`contact` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NOT NULL,
-  `firstname` VARCHAR(255) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `user_email` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(70) NOT NULL,
+  `firstname` VARCHAR(70) NOT NULL,
+  `email` VARCHAR(70) NOT NULL,
+  `user_email` VARCHAR(70) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `contactdb`.`pw_reset`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `contactdb`.`pw_reset` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(70) NOT NULL,
+  `key` VARCHAR(64) NOT NULL,
+  `expiracy` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

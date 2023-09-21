@@ -27,6 +27,8 @@
                     time_sleep_until(time() + 1);
 
                     $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+                    $mysqlConnection = databaseConnection();
             
                     $sql = 'INSERT INTO user (name, firstname, email, password, token, tokie_time, signup_date) VALUES (:nom, :prenom, :email, :password, "0", "0", CURDATE());';
                     $sth = $mysqlConnection->prepare($sql);

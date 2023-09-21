@@ -20,10 +20,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../style.css">
     <script src="dashboard.js" defer></script>
-    <noscript>
-        <h1>You need javascript to run this app</h1>
-        <style>.navbar, div { display: none; }</style>
-    </noscript>
 </head>
 <body>
     <!-- Header and Account Dropdown Menu -->
@@ -68,7 +64,7 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Add contact form -->
-                <form id="add-contact-form" name="add-contact-form" action="../_library/php/add-contact.php" method="post">
+                <form id="add-contact-form" name="add-contact-form" action="./add-contact.php" method="post">
                     <div class="form-group">
                         <label for="nom">Nom</label>
                         <input type="text" class="form-control" id="nom" name="nom" required>

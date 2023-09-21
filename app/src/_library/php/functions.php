@@ -71,7 +71,7 @@
     }
 
     /**
-     * Fonctions pour récupérer des infos de connection sur l'utilisateur (jeton, infos et contacts).
+     * Fonctions pour récupérer des infos de connection sur l'utilisateur (jeton, infos, contacts et token de changement de mdp).
      */
     function getToken() {
         if (isset($_COOKIE['token']) && !empty($_COOKIE['token'])) {
@@ -131,6 +131,25 @@
 
         } catch (Exception $err) {
             return $err;
+        }
+    }
+    function getKeysForPasswordReinit($key, $email) {
+        try {
+            $mysqlConnection = databaseConnection();
+
+            $sql = "SELECT email, `key`, expiracy FROM pw_reset WHERE `key` = :key AND email = :email";
+            $sth = $mysqlConnection->prepare($sql);
+            
+            $sth->bindParam(':key', $key, PDO::PARAM_STR);
+            $sth->bindParam(':email', $email, PDO::PARAM_STR);
+            
+            $sth->execute();
+    
+            $result = $sth->fetch(PDO::FETCH_ASSOC);
+    
+            return $result;
+        } catch (Exception $err) {
+            return false;
         }
     }
 ?>

@@ -2,19 +2,25 @@ const form = document.querySelector('form');
 const inputs = form.querySelectorAll('input');
 const feedback = form.querySelector('#email + .invalid-feedback');
 
-const modal = document.querySelector('.modal');
+const modalLogout = document.querySelector('.modal.logout');
+const modalPWC = document.querySelector('.modal.pw-changed')
 
 const logoutReason = new URLSearchParams(window.location.search);
 
 if (logoutReason.get('logout') === 'invalid_token') {
-    modal.classList.add('show');
+    modalLogout.classList.add('show');
+} else if (logoutReason.get('pw') === 'changed') {
+    modalPWC.classList.add('show');
 }
 
 history.replaceState({}, document.title, "/");
 
 document.addEventListener('click', function(e) {
-    if (e.target.dataset.dismiss === 'modal') {
-        modal.classList.remove('show');
+    if (e.target.dataset.dismiss === 'modal-lo') {
+        modalLogout.classList.remove('show');
+    }
+    if (e.target.dataset.dismiss === 'modal-pw') {
+        modalPWC.classList.remove('show');
     }
 })
 

@@ -34,5 +34,10 @@ services:
       - MYSQL_DATABASE=contactdb
       - MYSQL_USER=client
       - MYSQL_PASSWORD=Cha171205
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
 volumes:
   contactdb:

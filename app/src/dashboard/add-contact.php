@@ -1,5 +1,5 @@
 <?php
-    include './functions.php';
+    include '../_library/php/functions.php';
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = getToken();
 

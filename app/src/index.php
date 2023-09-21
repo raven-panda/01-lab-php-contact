@@ -17,13 +17,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="./index.js" type="module" defer></script>
-    <noscript>
-        <h1>You need javascript to run this app</h1>
-        <style>.navbar, div {display: none;}</style>
-    </noscript>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Mon Site</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +57,7 @@
 
         <!-- Lien : Mot de passe oublié -->
         <div class="form-group">
-            <a href="#">Mot de passe oublié ?</a>
+            <a href="./password-forgotten/password-forgotten.html">Mot de passe oublié ?</a>
         </div>
 
         <!-- Bouton d'envoi -->
@@ -70,7 +65,7 @@
     </form>
 </div>
 
-<div class="modal" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
+<div class="modal logout" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -81,7 +76,23 @@
         <p>Veuillez vous reconnecter pour continuer à utiliser l'application.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal-lo">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal pw-changed" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Mot de passe changé avec succès</h5>
+      </div>
+      <div class="modal-body">
+        <p>Votre mot de passe à bien été changé.</p>
+        <p>Vous pouvez vous connecter avec votre nouveau mot de passe.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal-pw">Close</button>
       </div>
     </div>
   </div>
