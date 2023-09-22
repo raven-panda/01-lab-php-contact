@@ -28,6 +28,9 @@ services:
       - type: bind
         source: ./database
         target: /docker-entrypoint-initdb.d
+      - type: bind
+        source: ./db_backup
+        target: /database_backup
     environment:
       - MYSQL_HOST=database
       - MYSQL_ROOT_PASSWORD=ImGroot3301*$

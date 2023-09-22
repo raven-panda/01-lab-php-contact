@@ -8,6 +8,12 @@
     <title>Réinitialiser mon mot de passe - Contacts</title>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="../index.php">Mon Site</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
     <main id="app" class="container mt-5">
         <h2>Réinitialisation de mon mot de passe</h2>
         <?php
@@ -50,12 +56,18 @@
                             <?php  
                         } else {
                             echo '<p>Votre lien a expiré. Veuillez recommencer.</p>';
+                            $sql = "DELETE FROM pw_reset WHERE email = :email";
+                            $sth = $mysqlConnection->prepare($sql);
+                            
+                            $sth->bindParam(':email', $email, PDO::PARAM_STR);
+                            
+                            $sth->execute();
                         }
                 } else {
                     echo json_encode('invalid');
                 }
             } else {
-                header('HTTP/1.0 404 Not Found');
+                http_response_code(404);
             }
         ?>
     </main>

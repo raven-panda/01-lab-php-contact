@@ -88,7 +88,7 @@
         <h5 class="modal-title" id="exampleModalCenterTitle">Mot de passe changé avec succès</h5>
       </div>
       <div class="modal-body">
-        <p>Votre mot de passe à bien été changé.</p>
+        <p>Votre mot de passe a bien été changé.</p>
         <p>Vous pouvez vous connecter avec votre nouveau mot de passe.</p>
       </div>
       <div class="modal-footer">

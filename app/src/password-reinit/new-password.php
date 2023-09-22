@@ -18,12 +18,17 @@ if ($_SERVER['REQUEST_METHOD'] === "POST"
             if ($row) {
                 $new_password = password_hash($password, PASSWORD_DEFAULT);
 
-                $sql = "UPDATE user SET `password` = :new_password";
+                $sql = "UPDATE user SET `password` = :new_password, token = 0, tokie_time = 0;
+                        DELETE FROM pw_reset WHERE email = :email;";
                 $sth = $mysqlConnection->prepare($sql);
                 
                 $sth->bindParam(':new_password', $new_password, PDO::PARAM_STR);
+                $sth->bindParam(':email', $email, PDO::PARAM_STR);
                 
                 $sth->execute();
+
+                session_destroy();
+                setcookie('token', '');
     
                 echo json_encode('true');
             } else {
