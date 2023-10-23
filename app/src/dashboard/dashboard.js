@@ -6,6 +6,8 @@ const dropdown = document.querySelector('#account-settings'),
 const burger = document.querySelector('#burger-menu'),
       navCol = document.querySelector('#navbarNav');
 
+const contactForm = document.querySelector('#add-contact-form');
+
 // Tout ce qui doit être déclenché quand l'utilisateur clique
 document.addEventListener('click', function(e) {  
     // Affiche/cache le menu déroulant 'Mon Compte' quand le clic est sur celui ci (desktop) ou sur le burger (mobile)
@@ -20,4 +22,28 @@ document.addEventListener('click', function(e) {
         }
 
     }
+})
+
+contactForm.addEventListener('submit', e => {
+    const formData = new FormData(contactForm);
+    e.preventDefault();
+
+    fetch('./add-contact.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error('Server error');
+        }
+        return res.json();
+    })
+    .then(data => {
+        if (data.valid) {
+            location.reload();
+        } else {
+            contactForm.classList.add('was-validated');
+            console.error(data.error);
+        }
+    })
 })

@@ -1,5 +1,11 @@
 <?php
     include '../_library/php/functions.php';
+
+    $response = array(
+        'valid' => 'false',
+        'error' => []
+    );
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $token = getToken();
 
@@ -27,15 +33,19 @@
 
                 $sth->execute();
 
-                header('Location: http://'. $_SERVER["HTTP_HOST"] .'/dashboard/dashboard.php');
+                $response['valid'] = true;
 
             } catch (Exception $err) {
-                echo json_encode($err->getMessage());
+                $response['valid'] = false;
+                $response['error'] = $err->getMessage();
             }
 
         } else {
-            echo 'non';
+            $response['valid'] = false;
+            $response['error'] = 'incorrect-fields';
         }
+
+        echo json_encode($response);
 
     } else {
         http_response_code(404);

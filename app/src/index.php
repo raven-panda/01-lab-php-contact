@@ -38,7 +38,7 @@
         <!-- Champ : Adresse e-mail -->
         <div class="form-group">
             <label for="email">Adresse e-mail</label>
-            <input type="email" pattern="^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$" class="form-control" id="email" name="email" value="jean.cricri@hotmail.fr" required>
+            <input type="email" pattern="^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$" class="form-control" id="email" name="email" required>
             <div class="invalid-feedback">Veuillez remplir ce champ</div>
         </div>
 

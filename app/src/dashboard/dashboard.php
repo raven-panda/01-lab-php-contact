@@ -64,18 +64,21 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- Add contact form -->
-                <form id="add-contact-form" name="add-contact-form" action="./add-contact.php" method="post">
+                <form id="add-contact-form" name="add-contact-form" action="#" method="post" novalidate>
                     <div class="form-group">
                         <label for="nom">Nom</label>
                         <input type="text" class="form-control" id="nom" name="nom" required>
+                        <div class="invalid-feedback">Veuillez remplir ce champ</div>
                     </div>
                     <div class="form-group">
                         <label for="prenom">Prénom</label>
                         <input type="text" class="form-control" id="prenom" name="prenom" required>
+                        <div class="invalid-feedback">Veuillez remplir ce champ</div>
                     </div>
                     <div class="form-group">
                         <label for="email">Adresse e-mail</label>
                         <input type="email" pattern="^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,}$" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">Veuillez remplir ce champ</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Ajouter Contact</button>
                 </form>
