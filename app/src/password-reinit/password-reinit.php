@@ -56,12 +56,15 @@
                             <?php  
                         } else {
                             echo '<p>Votre lien a expiré. Veuillez recommencer.</p>';
-                            $sql = "DELETE FROM pw_reset WHERE email = :email";
-                            $sth = $mysqlConnection->prepare($sql);
-                            
-                            $sth->bindParam(':email', $email, PDO::PARAM_STR);
-                            
-                            $sth->execute();
+                            $mysqlConnection = databaseConnection();
+                            if ($mysqlConnection) {
+                                $sql = "DELETE FROM pw_reset WHERE email = :email";
+                                $sth = $mysqlConnection->prepare($sql);
+                                
+                                $sth->bindParam(':email', $email, PDO::PARAM_STR);
+                                
+                                $sth->execute();
+                            }
                         }
                 } else {
                     echo json_encode('invalid');
